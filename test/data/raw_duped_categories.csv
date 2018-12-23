@@ -1,0 +1,13 @@
+﻿ID Number,Cat1,Cat2,Cat3,Cat4
+1,Apples,Like,Apples,Success
+2,Bananas,Like,Apples,Success
+3,Cherries,Like,Apples,Success
+4,Dragon Fruit,Like,Apples,Success
+5,Apples,Like,Apples,Success
+6,Apples,Like,Apples,Success
+7,Bananas,Like,Zebras,Success
+8,Cherries,Like,Zebras,Success
+9,Cherries,Like,Zebras,Success
+10,Cherries,Dislike,Zebras,Success
+11,Cherries,Dislike,Zebras,Success
+12,Cherries,Dislike,Zebras,Failure

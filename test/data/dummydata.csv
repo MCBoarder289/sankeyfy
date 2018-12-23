@@ -1,0 +1,13 @@
+﻿ID Number,Cat1,Cat2,Cat3,Cat4
+1,A,X,A,Success
+2,B,X,A,Success
+3,C,X,A,Success
+4,D,X,A,Success
+5,A,X,A,Success
+6,A,X,A,Success
+7,B,X,Z,Success
+8,C,X,Z,Success
+9,C,X,Z,Success
+10,C,Y,Z,Success
+11,C,Y,Z,Success
+12,C,Y,Z,Failure
