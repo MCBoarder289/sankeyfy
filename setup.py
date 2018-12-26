@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
       name='sankeyfy',
-      version='0.1',
+      version='0.2',
       description='Wrangle dataframes for use in Sankey visualizations',
       long_description=open("README.md", "r").read(),
       keywords = ('sankey plotly D3'),
