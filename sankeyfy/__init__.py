@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 
-def sankeyfy(df, agg_col, columns=None, agg='summary'):
+def sankeyfy(df, agg_col, columns=None, agg='summary', null_handle=None):
 
     """
 
@@ -13,14 +13,19 @@ def sankeyfy(df, agg_col, columns=None, agg='summary'):
 
         df = Dataframe of your categorical variables, and a single field for counts
 
+        agg_col = Column name that is the aggregation column (either unique identifier, or pre-aggregated count).
+
         columns = List of columns, and order matters. The visual will <mostly> follow this order.
                   Not passing columns naively will filter out your agg_col and use the current order.
-
-        agg_col = Column name that is the aggregation column (either unique identifier, or pre-aggregated count).
+                  If no agg_col is present, the function will assume that each row is unique, and will create
+                  an agg_col with that name passed to ti.
 
         agg = Value should be "summary" or "raw". This will determine whether or not
               function will do a distinct count of your numeric count field ("raw"), or if it needs to
               simply sum up the already pre-aggregated counts ("summary")
+
+        null_handle = Value that should replace null categories. Default behavior will be to drop null records.
+                      If a value is provided, all null categories will be replaced with the provided string.
 
     Output:
 
@@ -38,20 +43,32 @@ def sankeyfy(df, agg_col, columns=None, agg='summary'):
         assert len(columns) > 1, "ERROR: columns parameter does not have more than one item"
     assert isinstance(agg_col, str), "ERROR: agg_col parameter is not a string"
     assert (agg == 'summary' or agg == 'raw'), "ERROR: agg parameter needs to be 'summary' or 'raw'"
+    if null_handle:
+        assert isinstance(null_handle, str), "ERROR: null_handle parameter is not a string"
+
+    if null_handle:
+        df = df.fillna(value=null_handle)
 
     # Place unique column values in "label" dataframe
     label = pd.DataFrame(columns=['label', 'field'])
 
     if not columns:
-        # Create a list of columns and removes the agg_col
+        # Create a list of columns if not provided
         columns = df.columns.values.tolist()
 
-        columns.remove(agg_col)
+        # When generating the list of nodes, remove the agg_col if it's already present
+        if agg_col in columns:
+            columns.remove(agg_col)
+
+        # If agg_col is present, then we assume the df is a unique row that needs to be counted once
+        else:
+            df[agg_col] = 1  # Assuming default of 1 to count each row
+            agg = 'summary'  # Ensure the parameter is set to raw to that it sums the 1 count above
 
     for column in columns:
 
         unique_vals = df[column].unique().tolist()
-        field_col = [column for _ in range(len(unique_vals))]
+        field_col = [column] * len(unique_vals)
         append_df = pd.DataFrame(np.column_stack([unique_vals, field_col]), columns=['label', 'field'])
         label = label.append(append_df)
 

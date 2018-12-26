@@ -2,7 +2,7 @@
 
 The Sankeyfy package aims to simplify the creation of a Sankey
 visualization through a straightforward function call. Simply
-run the "sankeyfy" function on your dataframe, and it wil output
+run the "sankeyfy" function on your dataframe, and it will output
 the necessary dataframes for a Sankey chart.
 
 I built this for specifically for use with the **Plotly**  API,
@@ -30,8 +30,8 @@ Sankey visuals!
 
 ## To Do:
 
-1. Create Default NULL behavior as an option (Fill with an "unknown" category that you can feed the value for)
-2. Build functionality to create an ID field if one isn't provided...
+1. DONE - Create Default NULL behavior as an option (Fill with an "unknown" category that you can feed the value for)
+2. DONE - Build functionality to create an ID field if one isn't provided...
 
 Copyright 2018, MIT License
      

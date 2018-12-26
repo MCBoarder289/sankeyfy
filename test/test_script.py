@@ -5,7 +5,7 @@ import pandas as pd
 import plotly.offline as py
 from sankeyfy import sankeyfy
 
-df = pd.read_csv('./test/data/summary_duped_categories.csv')
+df = pd.read_csv('./test/data/raw_duped_categories_nulls2.csv')
 
 
 column_names = ['Cat1', 'Cat2', 'Cat3', 'Cat4']
@@ -21,7 +21,11 @@ id_field = 'ID Number'
 
 #label_df, final_df = sankeyfy(df, agg_col='Count', agg='summary')
 
-label_df, final_df = sankeyfy(df, agg_col='Count', columns=column_names, agg='summary')
+#label_df, final_df = sankeyfy(df, agg_col='Count', columns=column_names, agg='summary')
+
+#label_df, final_df = sankeyfy(df, agg_col='ID Number', columns=column_names, agg='raw')
+
+label_df, final_df = sankeyfy(df, agg_col='ID Number', columns=column_names, agg='raw', null_handle='N/A')
 
 
 # Plotly Sankey Trial
